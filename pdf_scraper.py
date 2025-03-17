@@ -24,12 +24,11 @@ def parse_schedule_line(line):
             'type': 'platform',
             'session': match.group(1),
             'platform': match.group(2),
-            'start_time': match.group(3),
-            'end_time': match.group(4),
+            'start_time': match.group(4),
             'gender': match.group(5),
             'weight_class': match.group(6),
             'group': match.group(7),
-            'attempts': match.group(8),
+            'total': match.group(8),
             'lifters': match.group(9)
         }
     return None
@@ -45,15 +44,15 @@ def extract_text_from_pdf(pdf_file):
         
         # Date mapping for each session range
         date_ranges = {
-            "December 5, 2024": (1, 7),    # Sessions 1-7
-            "December 6, 2024": (8, 13),   # Sessions 8-13
-            "December 7, 2024": (14, 19),  # Sessions 14-19
-            "December 8, 2024": (20, 23)   # Sessions 20-23
+            "April 3, 2025": (1, 6),    # Sessions 1-7
+            "April 4, 2025": (7, 12),   # Sessions 8-13
+            "April 5, 2025": (13, 18),  # Sessions 14-19
+            "April 6, 2025": (19, 22)   # Sessions 20-23
         }
         
         # Gender mapping
         gender_map = {
-            'F': 'Female',
+            'W': 'Female',
             'M': 'Male'
         }
         
@@ -89,7 +88,7 @@ def extract_text_from_pdf(pdf_file):
                         formatted_line = (f"Date: {current_date} | "
                                        f"Session: {current_session} | "
                                        f"Platform: {platform_match.group(1)} | "
-                                       f"Start Time: {platform_match.group(3)} | "
+                                       f"Start Time: {platform_match.group(4)} | "
                                        f"Weight Class: {weight_class} | "
                                        f"Entry Total: {platform_match.group(7)} | "
                                        f"Lifters: {platform_match.group(8)}")
@@ -101,7 +100,7 @@ def extract_text_from_pdf(pdf_file):
         return None
 
 def main():
-    url = "https://assets.contentstack.io/v3/assets/blteb7d012fc7ebef7f/blt6a963ae3a8e197f9/673251071d8bab6818e84f86/2024_-_NAOF_-_Preliminary_Schedule_REDU.pdf"
+    url = "https://assets.contentstack.io/v3/assets/blteb7d012fc7ebef7f/blt207e15f0bc24569c/67cba7f73661f24149ccbe4e/2025_-_Masters_-_Preliminary_Schedule.pdf"
     
     pdf_file = download_pdf(url)
     if not pdf_file:
